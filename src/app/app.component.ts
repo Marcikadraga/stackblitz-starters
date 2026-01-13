@@ -2,14 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
-import { DinoIntroComponent } from './intro/dino-intro.component';
+import { IntroComponent } from './intro/intro.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, DinoIntroComponent, HeaderComponent, RouterOutlet],
+  imports: [CommonModule, IntroComponent, HeaderComponent, RouterOutlet],
   template: `
-    <app-dino-intro *ngIf="showIntro" (done)="onIntroDone()"></app-dino-intro>
+    <app-intro *ngIf="showIntro" (done)="onIntroDone()"></app-intro>
+
     <ng-container *ngIf="!showIntro">
       <app-header></app-header>
       <main style="padding:16px">

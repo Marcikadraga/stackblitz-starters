@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 import { data } from '../shared/pictures/JsonPictures';
 import { decodeToPixels, drawCanvas } from '../shared/utils/canvas';
@@ -17,21 +9,15 @@ import { decodeToPixels, drawCanvas } from '../shared/utils/canvas';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div style="padding:16px">
-      <div style="position:relative; width:240px; height:240px">
-        <canvas #c1 style="position:absolute; inset:0; border:1px solid #ddd; background:#eee;"></canvas>
-        <canvas #c2 style="position:absolute; inset:0; border:1px solid #ddd; background:#eee;"></canvas>
-      </div>
+    <div style="position:relative; width:240px; height:240px; margin:0 auto;">
+      <canvas #c1 style="position:absolute; inset:0; border:1px solid #ddd; background:#eee;"></canvas>
+      <canvas #c2 style="position:absolute; inset:0; border:1px solid #ddd; background:#eee;"></canvas>
     </div>
   `,
 })
 export class DinoIntroComponent implements AfterViewInit {
   @ViewChild('c1') c1!: ElementRef<HTMLCanvasElement>;
   @ViewChild('c2') c2!: ElementRef<HTMLCanvasElement>;
-
-  @Output() done = new EventEmitter<void>();
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     const pixels1 = decodeToPixels(data['dino-run_right_right_up']);
@@ -41,11 +27,9 @@ export class DinoIntroComponent implements AfterViewInit {
     const canvas2 = this.c2.nativeElement;
 
     const fps = 10;
-    const durationMs = 3000;
     const pixelSize = 8;
     const canvasSizePx = 240;
 
-    // Initial state (hide by width/height)
     canvas1.style.width = `${canvasSizePx}px`;
     canvas1.style.height = `${canvasSizePx}px`;
     canvas2.style.width = `0px`;
@@ -54,7 +38,7 @@ export class DinoIntroComponent implements AfterViewInit {
     let toggle = false;
     let useFirstFrame = true;
 
-    const intervalId = window.setInterval(() => {
+    window.setInterval(() => {
       const currentPixels = useFirstFrame ? pixels1 : pixels2;
       useFirstFrame = !useFirstFrame;
 
@@ -74,11 +58,5 @@ export class DinoIntroComponent implements AfterViewInit {
         canvas1.style.height = `0px`;
       }
     }, Math.round(1000 / fps));
-
-    window.setTimeout(() => {
-      window.clearInterval(intervalId);
-      this.done.emit();      //tell parent we’re finished
-      this.cdr.detectChanges();
-    }, durationMs);
   }
 }
