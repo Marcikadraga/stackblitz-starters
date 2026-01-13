@@ -1,10 +1,5 @@
 export type Rgba = [number, number, number, number];
 
-/**
- * Your JSON frame shape:
- * frame.uniqueColors: { "1": [r,g,b,a], "2": ... }
- * frame.colors: rows of runs: [ [id] | [id,count] ]
- */
 export function decodeToPixels(frame: any): Rgba[][] {
   const palette = frame?.uniqueColors;
   const rows = frame?.colors;
@@ -18,7 +13,7 @@ export function decodeToPixels(frame: any): Rgba[][] {
     const row: Rgba[] = [];
 
     for (let i = 0; i < rowRuns.length; i++) {
-      const run = rowRuns[i]; // [id] or [id,count]
+      const run = rowRuns[i];
       const id = run[0];
       const count = run.length === 2 ? run[1] : 1;
 
