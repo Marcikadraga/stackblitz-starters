@@ -1,7 +1,7 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 12px 16px;
   border-bottom: 1px solid #ddd;
 }
@@ -26,4 +26,9 @@ a {
 
 .active {
   color: blueviolet;
+}
+
+#header-link-container{
+  margin-left:40px;
+  width:40%;
 }

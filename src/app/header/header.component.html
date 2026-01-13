@@ -1,39 +1,47 @@
 <header class="header">
+  <div id="logo-container">
+    <canvas #logoCanvas></canvas>
+  </div>
+
+
+<div id="header-link-container">
   <ul
-    class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm"
-    style="--bs-nav-link-color: var(--bs-white);
-         --bs-nav-pills-link-active-color: var(--bs-primary);
-         --bs-nav-pills-link-active-bg: var(--bs-white);"
-  >
-    <li class="nav-item">
-      <a
-        class="nav-link rounded-5"
-        routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Home
-      </a>
-    </li>
+  class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm"
+  style="--bs-nav-link-color: var(--bs-white);
+       --bs-nav-pills-link-active-color: var(--bs-primary);
+       --bs-nav-pills-link-active-bg: var(--bs-white);"
+>
+  <li class="nav-item">
+    <a
+      class="nav-link rounded-5"
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Home
+    </a>
+  </li>
 
-    <li class="nav-item">
-      <a
-        class="nav-link rounded-5"
-        routerLink="/games"
-        routerLinkActive="active"
-      >
-        Games
-      </a>
-    </li>
+  <li class="nav-item">
+    <a
+      class="nav-link rounded-5"
+      routerLink="/games"
+      routerLinkActive="active"
+    >
+      Games
+    </a>
+  </li>
 
-    <li class="nav-item">
-      <a
-        class="nav-link rounded-5"
-        routerLink="/about-me"
-        routerLinkActive="active"
-      >
-        About me
-      </a>
-    </li>
-  </ul>
+  <li class="nav-item">
+    <a
+      class="nav-link rounded-5"
+      routerLink="/about-me"
+      routerLinkActive="active"
+    >
+      About me
+    </a>
+  </li>
+</ul>
+</div>
+  
 </header>
