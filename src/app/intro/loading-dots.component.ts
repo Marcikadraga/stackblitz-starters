@@ -4,7 +4,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
   selector: 'app-loading-dots',
   standalone: true,
   template: `
-    <p style="margin-top:12px; text-align:center; font-size:18px; min-height:1.2em;">
+    <p style="margin-top:12px; font-size:18px;">
       Loading{{ dots }}
     </p>
   `,
@@ -12,7 +12,6 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 export class LoadingDotsComponent implements OnInit, OnDestroy {
   dots = '';
   private intervalId: number | undefined;
-
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {

@@ -20,8 +20,8 @@ export class DinoIntroComponent implements AfterViewInit {
   @ViewChild('c2') c2!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
-    const pixels1 = decodeToPixels(data['dino-run_right_right_up']);
-    const pixels2 = decodeToPixels(data['dino-run_right_left_up']);
+    const pixels1 = decodeToPixels(data['google_dino_left_up']);
+    const pixels2 = decodeToPixels(data['google_dino_right_up']);
 
     const canvas1 = this.c1.nativeElement;
     const canvas2 = this.c2.nativeElement;
