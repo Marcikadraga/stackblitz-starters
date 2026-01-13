@@ -14,12 +14,8 @@ export class HeaderComponent implements AfterViewInit {
   logoCanvas!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
-    // Replace this key with your logo key in the JSON
     const logoFrame = data['red-mushroom'];
-
     const pixels = decodeToPixels(logoFrame);
-
-    // Adjust size to taste
     drawCanvas(this.logoCanvas.nativeElement, pixels, 4);
   }
 }
