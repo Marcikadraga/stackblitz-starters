@@ -1,19 +1,7 @@
 .auth {
     display: flex;
     align-items: center;
-    gap: 12px;
-  }
-  
-  .user {
-    display: flex;
-    align-items: center;
     gap: 10px;
-  }
-  
-  .user img {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
   }
   
   .btn {

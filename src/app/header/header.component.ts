@@ -5,7 +5,8 @@ import { decodeToPixels, drawCanvas } from '../shared/utils/canvas';
 import { data } from '../shared/pictures/JsonPictures';
 
 // 👇 ADD THIS
-import { GoogleAuthComponent } from '../auth/google-auth/google-auth.component';
+import { GuestAuthComponent } from '../auth/guest-auth/guest-auth.component';
+
 
 @Component({
   selector: 'app-header',
@@ -13,9 +14,7 @@ import { GoogleAuthComponent } from '../auth/google-auth/google-auth.component';
   imports: [
     RouterLink,
     RouterLinkActive,
-
-    // 👇 ADD THIS
-    GoogleAuthComponent,
+    GuestAuthComponent,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
