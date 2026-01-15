@@ -1,7 +1,6 @@
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { HeaderAuthComponent } from '../auth/header-auth/header-auth.component';
-
 import { decodeToPixels, drawCanvas } from '../shared/utils/canvas';
 import { data } from '../shared/pictures/JsonPictures';
 
