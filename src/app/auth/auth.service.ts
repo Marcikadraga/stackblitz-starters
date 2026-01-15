@@ -3,6 +3,18 @@ import { BehaviorSubject } from 'rxjs';
 import { ScriptLoaderService } from '../shared/utils/script-loader.service';
 import { GoogleUser } from './auth.types';
 
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInAnonymously,
+  signInWithCredential,
+  signOut,
+  linkWithCredential,
+  User,
+} from 'firebase/auth';
+
+import { auth } from './firebase';
+
 declare global {
   interface Window {
     google?: any;
@@ -13,48 +25,50 @@ declare global {
 export class AuthService {
   private readonly GIS_SRC = 'https://accounts.google.com/gsi/client';
 
-  // TODO: replace with your real client id
+  // Must be the OAuth Web Client ID from Google Cloud Console
   private readonly clientId = 'YOUR_GOOGLE_CLIENT_ID';
 
   private initialized = false;
+  private pendingIdToken: string | null = null;
 
   private userSubject = new BehaviorSubject<GoogleUser | null>(null);
   user$ = this.userSubject.asObservable();
 
-  constructor(private scripts: ScriptLoaderService) {}
+  constructor(private scripts: ScriptLoaderService) {
+    // Keep app state synced with Firebase session
+    onAuthStateChanged(auth, (u) => this.userSubject.next(this.mapFirebaseUser(u)));
+  }
 
-  async init(): Promise<void> {
+  async initGIS(): Promise<void> {
     if (this.initialized) return;
 
     await this.scripts.load(this.GIS_SRC);
 
     if (!window.google?.accounts?.id) {
-      throw new Error('Google Identity Services not available on window.google');
+      throw new Error('Google Identity Services not available.');
     }
 
     window.google.accounts.id.initialize({
       client_id: this.clientId,
+      ux_mode: 'popup', // small popup UX :contentReference[oaicite:2]{index=2}
+      callback: async (resp: { credential?: string }) => {
+        const idToken = resp?.credential;
+        if (!idToken) return;
 
-      // small popup UX (not full-page redirect)
-      ux_mode: 'popup',
-
-      // popup mode returns JWT in credential field
-      callback: (resp: { credential?: string }) => {
-        const jwt = resp?.credential;
-        if (!jwt) return;
-
-        const user = this.decodeIdToken(jwt);
-        this.userSubject.next(user);
-
-        // In a real app, send `jwt` to your backend for verification & session creation.
+        // If user is anonymous, we’ll link instead of replacing the account
+        const current = auth.currentUser;
+        if (current?.isAnonymous) {
+          await this.linkAnonymousWithGoogle(idToken);
+        } else {
+          await this.signInWithGoogleIdToken(idToken);
+        }
       },
     });
 
     this.initialized = true;
   }
 
-  /** Used by the component to render the official Google button */
-  renderButton(container: HTMLElement): void {
+  renderGoogleButton(container: HTMLElement): void {
     window.google.accounts.id.renderButton(container, {
       theme: 'outline',
       size: 'medium',
@@ -63,41 +77,37 @@ export class AuthService {
     });
   }
 
-  /** Optional: show One Tap prompt (you can skip if you only want the button) */
-  promptOneTap(): void {
-    window.google.accounts.id.prompt();
+  async signInGuest(): Promise<void> {
+    await signInAnonymously(auth); // guest sign-in :contentReference[oaicite:3]{index=3}
   }
 
-  signOut(): void {
-    const user = this.userSubject.value;
-    this.userSubject.next(null);
+  async signInWithGoogleIdToken(idToken: string): Promise<void> {
+    const credential = GoogleAuthProvider.credential(idToken);
+    await signInWithCredential(auth, credential); // :contentReference[oaicite:4]{index=4}
+  }
 
-    // disable auto-select so it doesn't instantly sign in again
+  async linkAnonymousWithGoogle(idToken: string): Promise<void> {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const credential = GoogleAuthProvider.credential(idToken);
+    await linkWithCredential(user, credential); // links guest -> Google :contentReference[oaicite:5]{index=5}
+  }
+
+  async logout(): Promise<void> {
+    // prevents auto reselect in GIS
     window.google?.accounts?.id?.disableAutoSelect?.();
-
-    // optional: revoke consent for this user (requires email/sub + active Google session)
-    if (user?.email) {
-      window.google?.accounts?.id?.revoke?.(user.email, () => {});
-    }
+    await signOut(auth);
   }
 
-  private decodeIdToken(jwt: string): GoogleUser {
-    // WARNING: decoding != verifying. Verify on backend for real security.
-    const payload = jwt.split('.')[1];
-    const json = decodeURIComponent(
-      atob(payload.replace(/-/g, '+').replace(/_/g, '/'))
-        .split('')
-        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-
-    const data = JSON.parse(json);
+  private mapFirebaseUser(u: User | null): GoogleUser | null {
+    if (!u) return null;
 
     return {
-      sub: data.sub,
-      email: data.email,
-      name: data.name,
-      picture: data.picture,
+      sub: u.uid,
+      email: u.email ?? undefined,
+      name: u.displayName ?? (u.isAnonymous ? 'Guest' : undefined),
+      picture: u.photoURL ?? undefined,
     };
   }
 }

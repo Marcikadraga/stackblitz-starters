@@ -11,22 +11,20 @@ import { AuthService } from '../auth.service';
 })
 export class GoogleAuthComponent implements AfterViewInit {
   @ViewChild('btn', { static: true }) btnRef!: ElementRef<HTMLElement>;
-
   user$ = this.auth.user$;
 
   constructor(private auth: AuthService) {}
 
   async ngAfterViewInit() {
-    await this.auth.init();
-
-    // extra safety (should exist now anyway)
-    const el = this.btnRef?.nativeElement;
-    if (!el) return;
-
-    this.auth.renderButton(el);
+    await this.auth.initGIS();
+    this.auth.renderGoogleButton(this.btnRef.nativeElement);
   }
 
-  signOut() {
-    this.auth.signOut();
+  guest() {
+    this.auth.signInGuest();
+  }
+
+  logout() {
+    this.auth.logout();
   }
 }
