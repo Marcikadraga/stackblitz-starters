@@ -1,11 +1,22 @@
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+
 import { decodeToPixels, drawCanvas } from '../shared/utils/canvas';
 import { data } from '../shared/pictures/JsonPictures';
 
+// 👇 ADD THIS
+import { GoogleAuthComponent } from '../auth/google-auth/google-auth.component';
+
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+
+    // 👇 ADD THIS
+    GoogleAuthComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
