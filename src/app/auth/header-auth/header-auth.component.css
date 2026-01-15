@@ -1,0 +1,25 @@
+.wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .hello {
+    font-weight: 600;
+  }
+  
+  .btn {
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 12px;
+    padding: 6px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .btn.primary {
+    border-color: #ccc;
+    font-weight: 600;
+  }
+  

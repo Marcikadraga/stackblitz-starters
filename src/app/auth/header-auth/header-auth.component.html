@@ -1,0 +1,15 @@
+<ng-container *ngIf="user$ | async as user; else loggedOut">
+    <div class="wrap">
+      <span class="hello">Hi, {{ user.name }}</span>
+      <button class="btn" (click)="logout()">Logout</button>
+    </div>
+  </ng-container>
+  
+  <ng-template #loggedOut>
+    <div class="wrap">
+      <button class="btn" (click)="guest()">Guest</button>
+      <a class="btn" routerLink="/sign-in">Sign in</a>
+      <a class="btn primary" routerLink="/auth">Register</a>
+    </div>
+  </ng-template>
+  
