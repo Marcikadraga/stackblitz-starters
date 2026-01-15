@@ -27,7 +27,7 @@
 
     <p class="err" *ngIf="errorMsg">{{ errorMsg }}</p>
 
-    <button class="btn primary" [disabled]="loading">
+    <button type="submit" class="btn primary" [disabled]="loading">
       {{ loading ? 'Registering…' : 'Register' }}
     </button>
   </form>

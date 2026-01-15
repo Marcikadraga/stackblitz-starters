@@ -100,11 +100,11 @@ export class AuthService {
 
   private mapUser(u: User | null): GoogleUser | null {
     if (!u) return null;
-
+  
     return {
       sub: u.uid,
       email: u.email ?? undefined,
-      name: u.displayName ?? (u.isAnonymous ? 'Guest' : undefined),
+      name: u.displayName ?? (u.isAnonymous ? 'Guest' : u.email ?? 'User'),
       picture: u.photoURL ?? undefined,
     };
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,7 +24,8 @@ export class AuthPageComponent {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   async submit() {
@@ -32,6 +33,8 @@ export class AuthPageComponent {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      // helps StackBlitz repaint validation messages immediately
+      this.cdr.detectChanges();
       return;
     }
 
@@ -39,30 +42,38 @@ export class AuthPageComponent {
     if (!displayName || !email || !password) return;
 
     this.loading = true;
+    this.cdr.detectChanges(); // force repaint (StackBlitz/HMR can be flaky)
+
     try {
       await this.auth.register(email, password, displayName);
 
-      // ✅ redirect to Home after successful registration
-      await this.router.navigateByUrl('/');
-    }  catch (e: any) {
-      console.log('REGISTER ERROR FULL:', e);              // 👈 add
-      console.log('REGISTER ERROR CODE:', e?.code);        // 👈 add
-      console.log('REGISTER ERROR MESSAGE:', e?.message);  // 👈 add
-    
-      this.errorMsg = this.humanizeFirebaseError(e?.code) ?? e?.message ?? 'Something went wrong.';
+      // Optional redirect after successful registration:
+      // await this.router.navigateByUrl('/');
+    } catch (e: any) {
+      console.log('CATCH RUNNING', e?.code, e?.message);
+
+      this.errorMsg =
+        this.humanizeFirebaseError(e?.code) ??
+        e?.message ??
+        'Something went wrong.';
+
+      this.cdr.detectChanges(); // show error immediately
     } finally {
       this.loading = false;
+      this.cdr.detectChanges(); // ✅ critical: update button text immediately
     }
   }
 
   private humanizeFirebaseError(code?: string): string | null {
     switch (code) {
       case 'auth/email-already-in-use':
-        return 'This email is already registered.';
+        return 'This email is already registered. Try logging in instead.';
       case 'auth/invalid-email':
         return 'Please enter a valid email address.';
       case 'auth/weak-password':
         return 'Password is too weak (min 6 characters).';
+      case 'auth/operation-not-allowed':
+        return 'Email/password sign-in is disabled in Firebase Console. Enable it under Authentication → Sign-in method.';
       default:
         return null;
     }
