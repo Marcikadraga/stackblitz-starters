@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { auth,db } from './firebase';
+import { GoogleUser } from './auth.types';
 import {
   onAuthStateChanged,
   signInAnonymously,
@@ -10,10 +13,10 @@ import {
   updateProfile,
   linkWithCredential,
   EmailAuthProvider,
+
+  
 } from 'firebase/auth';
 
-import { auth } from './firebase';
-import { GoogleUser } from './auth.types';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -31,25 +34,60 @@ export class AuthService {
     await signInAnonymously(auth);
   }
 
-  // Register new account
-  async register(email: string, password: string, displayName?: string): Promise<void> {
-    // If user is currently Guest, link guest -> email/password (keeps progress)
+  async register(email: string, password: string, displayName: string): Promise<void> {
+    const cleanName = displayName.trim();
+    console.log('REGISTER: start', { email });
+  
     if (auth.currentUser?.isAnonymous) {
+      console.log('REGISTER: guest detected, linking...');
       const cred = EmailAuthProvider.credential(email, password);
-      await linkWithCredential(auth.currentUser, cred);
-
-      if (displayName?.trim()) {
-        await updateProfile(auth.currentUser, { displayName: displayName.trim() });
-      }
+  
+      const linked = await linkWithCredential(auth.currentUser, cred);
+      console.log('REGISTER: linked', linked.user.uid);
+  
+      await updateProfile(linked.user, { displayName: cleanName });
+      console.log('REGISTER: profile updated');
+  
+      await setDoc(
+        doc(db, 'users', linked.user.uid),
+        {
+          uid: linked.user.uid,
+          email: linked.user.email,
+          displayName: cleanName,
+          isAnonymous: false,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
+      console.log('REGISTER: firestore saved');
+  
       return;
     }
-
+  
+    console.log('REGISTER: normal createUser...');
     const res = await createUserWithEmailAndPassword(auth, email, password);
-
-    if (displayName?.trim()) {
-      await updateProfile(res.user, { displayName: displayName.trim() });
-    }
+    console.log('REGISTER: created', res.user.uid);
+  
+    await updateProfile(res.user, { displayName: cleanName });
+    console.log('REGISTER: profile updated');
+  
+    await setDoc(
+      doc(db, 'users', res.user.uid),
+      {
+        uid: res.user.uid,
+        email: res.user.email,
+        displayName: cleanName,
+        isAnonymous: false,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      },
+      { merge: true }
+    );
+    console.log('REGISTER: firestore saved');
   }
+  
+  
 
   // Login existing account
   async login(email: string, password: string): Promise<void> {
