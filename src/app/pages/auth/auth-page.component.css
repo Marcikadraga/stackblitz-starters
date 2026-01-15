@@ -1,0 +1,40 @@
+.card {
+    max-width: 360px;
+    margin: 40px auto;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 18px;
+    background: white;
+  }
+  
+  .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .tab {
+    flex: 1;
+    border: 1px solid #eee;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .tab.active { border-color: #ccc; font-weight: 600; }
+  
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  input {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 10px;
+  }
+  
+  .btn {
+    width: 100%;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .btn.primary { border-color: #ccc; font-weight: 600; }
+  
+  .err { color: #b00020; margin: 8px 0 0; }
+  .divider { height: 1px; background: #eee; margin: 14px 0; }
+  

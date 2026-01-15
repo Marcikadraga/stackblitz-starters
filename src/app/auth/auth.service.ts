@@ -5,6 +5,11 @@ import {
   signInAnonymously,
   signOut,
   User,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+  linkWithCredential,
+  EmailAuthProvider,
 } from 'firebase/auth';
 
 import { auth } from './firebase';
@@ -21,8 +26,34 @@ export class AuthService {
     });
   }
 
+  // Guest
   async signInGuest(): Promise<void> {
     await signInAnonymously(auth);
+  }
+
+  // Register new account
+  async register(email: string, password: string, displayName?: string): Promise<void> {
+    // If user is currently Guest, link guest -> email/password (keeps progress)
+    if (auth.currentUser?.isAnonymous) {
+      const cred = EmailAuthProvider.credential(email, password);
+      await linkWithCredential(auth.currentUser, cred);
+
+      if (displayName?.trim()) {
+        await updateProfile(auth.currentUser, { displayName: displayName.trim() });
+      }
+      return;
+    }
+
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+
+    if (displayName?.trim()) {
+      await updateProfile(res.user, { displayName: displayName.trim() });
+    }
+  }
+
+  // Login existing account
+  async login(email: string, password: string): Promise<void> {
+    await signInWithEmailAndPassword(auth, email, password);
   }
 
   async logout(): Promise<void> {
@@ -34,7 +65,9 @@ export class AuthService {
 
     return {
       sub: u.uid,
-      name: 'Guest',
+      email: u.email ?? undefined,
+      name: u.displayName ?? (u.isAnonymous ? 'Guest' : undefined),
+      picture: u.photoURL ?? undefined,
     };
   }
 }
