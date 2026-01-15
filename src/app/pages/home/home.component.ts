@@ -13,8 +13,7 @@ import { MushroomRotateComponent } from '../../animations/mushroom-rotate.compon
 
   <!-- Foreground content -->
   <div class="content">
-    <h1>Welcome</h1>
-    <p>This is my home page</p>
+
   </div>
 </div>
   `,
