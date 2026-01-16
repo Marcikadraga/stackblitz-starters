@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -13,14 +13,23 @@ import { AuthService } from '../auth.service';
 export class HeaderAuthComponent {
   user$ = this.auth.user$;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
-  guest() {
-    this.auth.signInGuest();
+  async guest() {
+    try {
+      await this.auth.signInGuest();     
+      await this.router.navigateByUrl('/');
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  logout() {
-    this.auth.logout();
+  async logout() {
+    try {
+      await this.auth.logout();
+      await this.router.navigateByUrl('/');
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
-

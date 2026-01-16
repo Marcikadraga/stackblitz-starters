@@ -33,7 +33,6 @@ export class AuthPageComponent {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      // helps StackBlitz repaint validation messages immediately
       this.cdr.detectChanges();
       return;
     }
@@ -42,13 +41,12 @@ export class AuthPageComponent {
     if (!displayName || !email || !password) return;
 
     this.loading = true;
-    this.cdr.detectChanges(); // force repaint (StackBlitz/HMR can be flaky)
+    this.cdr.detectChanges(); 
 
     try {
       await this.auth.register(email, password, displayName);
+      await this.router.navigateByUrl('/');
 
-      // Optional redirect after successful registration:
-      // await this.router.navigateByUrl('/');
     } catch (e: any) {
       console.log('CATCH RUNNING', e?.code, e?.message);
 
@@ -57,10 +55,11 @@ export class AuthPageComponent {
         e?.message ??
         'Something went wrong.';
 
-      this.cdr.detectChanges(); // show error immediately
+      this.cdr.detectChanges(); 
     } finally {
       this.loading = false;
-      this.cdr.detectChanges(); // ✅ critical: update button text immediately
+      this.cdr.detectChanges(); 
+
     }
   }
 
