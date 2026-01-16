@@ -14,13 +14,13 @@ canvas {
   transform-origin: 50% 50%;
 }
 
-#yellow-mushroom-container{
+#green-mushroom-container{
   animation: spin 30s linear infinite;
   width: 480px;
   height: 480px;
 }
 
-#yellowMushroom{
+#greenMushroom{
   position: absolute;
   width: 120px;
   height: 120px;
