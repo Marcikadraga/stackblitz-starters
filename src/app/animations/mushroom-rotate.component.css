@@ -1,24 +1,39 @@
-:host {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    pointer-events: none;
+#mushroom-animation-container{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  image-rendering: pixelated;
+  animation: spin 60s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+#yellow-mushroom-container{
+  animation: spin 30s linear infinite;
+  width: 480px;
+  height: 480px;
+}
+
+#yellowMushroom{
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  image-rendering: pixelated;
+  animation: spin 30s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
-  
-  canvas {
-    width: 480px;
-    height: 480px;
-    image-rendering: pixelated;
-    animation: spin 60s linear infinite;
-    transform-origin: 50% 50%;
+  to {
+    transform: rotate(360deg);
   }
-  
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+}
