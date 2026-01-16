@@ -32,3 +32,10 @@ a {
   margin-left:40px;
   width:40%;
 }
+
+#auth-container{
+width: 60%;
+display: flex;
+justify-content: end;
+align-items: center;
+}
