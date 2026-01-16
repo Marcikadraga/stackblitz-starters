@@ -12,12 +12,26 @@ canvas {
   image-rendering: pixelated;
   animation: spin 60s linear infinite;
   transform-origin: 50% 50%;
+  z-index: 2;
 }
 
 #green-mushroom-container{
   animation: spin 30s linear infinite;
+  position: absolute;
   width: 480px;
   height: 480px;
+  z-index: 2;
+}
+
+#yellow-mushroom-container{
+  animation: spin 30s linear infinite;
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  z-index: 4;
 }
 
 #greenMushroom{
@@ -26,6 +40,17 @@ canvas {
   height: 120px;
   image-rendering: pixelated;
   animation: spin 30s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+
+
+#yellowMushroom{
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  image-rendering: pixelated;
+  animation: spin 80s linear infinite;
   transform-origin: 50% 50%;
 }
 

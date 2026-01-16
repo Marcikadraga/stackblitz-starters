@@ -4,7 +4,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
   selector: 'app-loading-dots',
   standalone: true,
   template: `
-    <p style="margin-top:12px;margin-left:55px; font-size:18px;">
+    <p style="font-weight: bold; margin-top:12px;margin-left:55px; color: rgba(116, 114, 114, 1); font-size:18px; ">
       Loading{{ dots }}
     </p>
   `,

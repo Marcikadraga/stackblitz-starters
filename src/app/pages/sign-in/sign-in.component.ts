@@ -44,8 +44,6 @@ export class SignInComponent {
 
     try {
       await this.auth.login(email, password);
-
-      // ✅ after successful sign in → go home
       await this.router.navigateByUrl('/');
     } catch (e: any) {
       this.errorMsg = this.humanizeFirebaseError(e?.code) ?? 'Login failed.';

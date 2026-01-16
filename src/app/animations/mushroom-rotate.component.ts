@@ -14,8 +14,10 @@ import { decodeToPixels, drawCanvas, Rgba } from '../shared/utils/canvas';
       <div id="green-mushroom-container" >
         <canvas id="greenMushroom" #greenMushroom></canvas>
       </div>
-    
-    
+
+      <div id="yellow-mushroom-container" >
+        <canvas id="yellowMushroom" #yellowMushroom></canvas>
+      </div>
 
     </div>
   `,
@@ -24,11 +26,13 @@ import { decodeToPixels, drawCanvas, Rgba } from '../shared/utils/canvas';
 export class MushroomRotateComponent implements AfterViewInit {
   @ViewChild('redMushroom', { static: true }) redMushroom!: ElementRef<HTMLCanvasElement>;
   @ViewChild('greenMushroom', { static: true }) greenMushroom!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('yellowMushroom', { static: true }) yellowMushroom!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
     const redPixels = decodeToPixels(data['red-mushroom']);
-    const yellowPixels = decodeToPixels(data['green-mushroom']);
-  
+    const greenPixels = decodeToPixels(data['green-mushroom']);
+    const yellowPixels = decodeToPixels(data['yellow-mushroom']);
+
     const size = 480;
   
     const redCanvas = this.redMushroom.nativeElement;
@@ -36,10 +40,16 @@ export class MushroomRotateComponent implements AfterViewInit {
     redCanvas.height = size;
     drawCanvas(redCanvas, redPixels, 16);
   
-    const yellowCanvas = this.greenMushroom.nativeElement;
+    const greenCanvas = this.greenMushroom.nativeElement;
+    greenCanvas.width = size;
+    greenCanvas.height = size;
+    drawCanvas(greenCanvas, greenPixels, 3); 
+
+      
+    const yellowCanvas = this.yellowMushroom.nativeElement;
     yellowCanvas.width = size;
     yellowCanvas.height = size;
-    drawCanvas(yellowCanvas, yellowPixels, 3); 
+    drawCanvas(yellowCanvas, yellowPixels, 3);
   }
   
 }
