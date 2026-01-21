@@ -5,17 +5,18 @@ import { MushroomRotateComponent } from '../../animations/mushroom-rotate.compon
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [CommonModule, MushroomRotateComponent],
   template: `
-  <div class="home">
-  <!-- Background animation -->
-  <app-mushroom-rotate class="bg-anim"></app-mushroom-rotate>
+    <div class="home">
+      <app-mushroom-rotate class="bg-anim"></app-mushroom-rotate>
 
-  <!-- Foreground content -->
-  <div class="content">
-
-  </div>
-</div>
+      <div class="content">
+        <!-- your content -->
+      </div>
+    </div>
   `,
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {}
+
