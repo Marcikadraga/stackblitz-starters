@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* easiest, no parent-height issues */
+  }
+  
+  .page {
+    flex: 1;
+    min-height: 0; /* important for flex children */
+  }

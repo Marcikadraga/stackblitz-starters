@@ -8,15 +8,16 @@ import { IntroComponent } from './intro/intro.component';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, IntroComponent, HeaderComponent, RouterOutlet],
+  styleUrls: ['./app.component.css'],
   template: `
     <app-intro *ngIf="showIntro" (done)="onIntroDone()"></app-intro>
 
-    <ng-container *ngIf="!showIntro">
-      <app-header></app-header>
-      <main style="padding:16px">
-        <router-outlet></router-outlet>
-      </main>
-    </ng-container>
+    <div class="app-shell" *ngIf="!showIntro">
+    <app-header></app-header>
+    <main class="page">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
   `,
 })
 export class AppComponent {
