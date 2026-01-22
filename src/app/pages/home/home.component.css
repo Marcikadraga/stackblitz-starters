@@ -1,7 +1,30 @@
 :host {
-  height:  85vh;
+  height:  95vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #7289da;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow: hidden;
+  position:relative
 }
-;
+
+#slogan{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  z-index: 10000;
+}
+
+#slogan p{
+  font-size: 22px;
+  font-family: 'VT323', monospace;
+  font-weight: bolder;
+  color: white
+}
+
+
+
+

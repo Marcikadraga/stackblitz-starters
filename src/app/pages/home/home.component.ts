@@ -11,8 +11,8 @@ import { MushroomRotateComponent } from '../../animations/mushroom-rotate.compon
     <div class="home">
       <app-mushroom-rotate class="bg-anim"></app-mushroom-rotate>
 
-      <div class="content">
-        <!-- your content -->
+      <div id="slogan">
+        <p>Powered by NPKK.</p>
       </div>
     </div>
   `,
