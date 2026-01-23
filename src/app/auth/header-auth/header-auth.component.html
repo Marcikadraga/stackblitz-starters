@@ -1,14 +1,14 @@
 <ng-container *ngIf="user$ | async as user; else loggedOut">
   <div class="wrap">
     <span class="hello">Hi, {{ user.name }}</span>
-    <button class="btn" (click)="logout()">Logout</button>
+    <button class="btn-auth" (click)="logout()">Logout</button>
   </div>
 </ng-container>
 
 <ng-template #loggedOut>
   <div class="wrap">
-    <a class="btn" routerLink="/sign-in">Sign in</a>
-    <a class="btn" routerLink="/auth">Register</a>
-    <button class="btn" (click)="guest()">Sign in as guest</button>
+    <a class="btn-auth" routerLink="/sign-in">Sign in</a>
+    <a class="btn-auth" routerLink="/auth">Register</a>
+    <button class="btn-auth" (click)="guest()">Sign in as guest</button>
   </div>
 </ng-template>
