@@ -21,6 +21,7 @@ export class LoadingDotsComponent implements OnInit, OnDestroy {
     }, 350);
   }
 
+  
   ngOnDestroy(): void {
     if (this.intervalId !== undefined) {
       window.clearInterval(this.intervalId);
