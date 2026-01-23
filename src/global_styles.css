@@ -11,3 +11,25 @@ app-root {
   display: block;
   height: 100%;
 }
+
+.light-theme {
+  --bg-color: #7289da;
+  --text-color: rgba(34, 34, 34, 1)
+  --header-color: #f5f5f5;
+}
+
+.dark-theme {
+  --bg-color: rgba(34, 34, 34, 1);
+  --text-color: #ffffff;
+  --header-color: #1e1e1e;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+
+
+
+

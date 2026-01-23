@@ -35,8 +35,14 @@ export function drawCanvas(
 ): void {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
-
   if (!twoDArray.length || !twoDArray[0].length) return;
+
+  function normalizeAlpha(a: number): number {
+    if (!Number.isFinite(a)) return 1;
+    if (a <= 1) return Math.max(0, a);                // 0..1
+    if (a <= 100) return Math.max(0, a / 100);        // 0..100 (%)
+    return Math.max(0, Math.min(255, a)) / 255;       // 0..255
+  }
 
   canvas.width = pixelSize * twoDArray[0].length;
   canvas.height = pixelSize * twoDArray.length;
@@ -46,7 +52,7 @@ export function drawCanvas(
   for (let y = 0; y < twoDArray.length; y++) {
     for (let x = 0; x < twoDArray[y].length; x++) {
       const [r, g, b, a] = twoDArray[y][x];
-      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${normalizeAlpha(a)})`;
       ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
     }
   }

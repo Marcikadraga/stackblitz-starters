@@ -10,8 +10,8 @@ import { decodeToPixels, drawCanvas } from '../shared/utils/canvas';
   imports: [CommonModule],
   template: `
     <div style="position:relative; width:240px; height:240px; margin:0 auto;">
-      <canvas #c1 style="position:absolute; inset:0; border:0px solid #ddd; background:#eee;"></canvas>
-      <canvas #c2 style="position:absolute; inset:0; border:0px solid #ddd; background:#eee;"></canvas>
+      <canvas #c1 style="  position:absolute; inset:0; border:0px solid #ddd; background:#eee;"></canvas>
+      <canvas #c2 style="  position:absolute; inset:0; border:0px solid #ddd; background:#eee;"></canvas>
     </div>
   `,
 })

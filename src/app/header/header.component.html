@@ -48,6 +48,16 @@
     </ul>
   </div>
 
+  <label class="switch">
+    <input
+      type="checkbox"
+      [checked]="theme.darkMode"
+      (change)="onThemeChange($event)"
+    />
+    <span class="slider round"></span>
+  </label>
+  
+
   <div id="auth-container">
     <app-header-auth></app-header-auth>
   </div>

@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { IntroComponent } from './intro/intro.component';
+import { ThemeService } from './core/services/theme.service';
+
 
 @Component({
   selector: 'app-root',
@@ -23,7 +25,13 @@ import { IntroComponent } from './intro/intro.component';
 export class AppComponent {
   showIntro = true;
 
+  constructor(private theme: ThemeService) {}
+
   onIntroDone(): void {
     this.showIntro = false;
+  }
+
+  ngOnInit() {
+    this.theme.initTheme();
   }
 }

@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { HeaderAuthComponent } from '../auth/header-auth/header-auth.component';
 import { decodeToPixels, drawCanvas } from '../shared/utils/canvas';
 import { data } from '../shared/pictures/JsonPictures';
+import { ThemeService } from '../core/services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -19,9 +20,19 @@ export class HeaderComponent implements AfterViewInit {
   @ViewChild('logoCanvas', { static: true })
   logoCanvas!: ElementRef<HTMLCanvasElement>;
 
+  constructor(public theme: ThemeService) {}
+
+  onThemeChange(event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.theme.toggleTheme(checked);
+  }
+
+
+
   ngAfterViewInit(): void {
     const logoFrame = data['red-mushroom'];
     const pixels = decodeToPixels(logoFrame);
     drawCanvas(this.logoCanvas.nativeElement, pixels, 4);
   }
 }
+
