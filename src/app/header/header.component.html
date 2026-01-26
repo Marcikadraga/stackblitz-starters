@@ -6,57 +6,43 @@
   <div id="header-link-container">
     <ul class="header-nav">
       <li>
-        <a
-          class="header-link"
-          routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
+        <a class="header-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           Home
         </a>
       </li>
 
       <li>
-        <a
-          class="header-link"
-          routerLink="/games"
-          routerLinkActive="active"
-        >
+        <a class="header-link" routerLink="/games" routerLinkActive="active">
           Games
         </a>
       </li>
 
       <li>
-        <a
-          class="header-link"
-          routerLink="/settings"
-          routerLinkActive="active"
-        >
+        <a class="header-link" routerLink="/settings" routerLinkActive="active">
           Settings
         </a>
       </li>
-
       <li>
-        <a
-          class="header-link"
-          routerLink="/about-me"
-          routerLinkActive="active"
-        >
+        <a class="header-link" routerLink="/about-me" routerLinkActive="active">
           About me
+        </a>
+      </li>
+      <li>
+        <a class="header-link" routerLink="/admin" routerLinkActive="active">
+          admin
         </a>
       </li>
     </ul>
   </div>
 
-  <label class="switch">
-    <input
-      type="checkbox"
-      [checked]="theme.darkMode"
-      (change)="onThemeChange($event)"
-    />
-    <span class="slider round"></span>
-  </label>
-  
+  <div>
+    <label class="switch">
+      <input type="checkbox" [checked]="theme.darkMode" (change)="onThemeChange($event)" />
+      <span class="slider round"></span>
+    </label>
+  </div>
+
+
 
   <div id="auth-container">
     <app-header-auth></app-header-auth>
