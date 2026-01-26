@@ -1,23 +1,28 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 12px 16px;
-  background-color: 	#282b30;
+  background-color: #282b30;
   flex-direction: row;
 }
 
-.header #header-link-container{
+.header #header-link-container {
   display: flex;
   justify-content: start;
   align-items: start;
-  width:30%;
+  width: 30%;
 }
 
-#header-link-container ul li{
+#header-link-container ul li {
   width: 100x;
   margin: 0px;
   padding: 0px;
+}
+
+#toogle-container {
+  width: 50px;
+  height: 50px;
 }
 
 .logo {
@@ -49,18 +54,19 @@ a {
   background-color: #36393e;
 }
 
-
-
-#header-link-container{
-  margin-left:40px;
-  width:40%;
+#header-link-container {
+  margin-left: 40px;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#auth-container{
-width: 60%;
-display: flex;
-justify-content: end;
-align-items: center;
+#auth-container {
+  width: 30%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
 
 .header-nav {
@@ -69,11 +75,13 @@ align-items: center;
   margin: 0;
   display: flex;
   gap: 1rem;
+  justify-content: start;
+  align-items: center;
 }
 
 .header-nav li {
   margin: 20px;
-  padding: 0; /* remove padding from li */
+  padding: 0;
   white-space: nowrap;
 }
 
@@ -95,10 +103,17 @@ align-items: center;
   background-color: #36393e;
 }
 
+.toggle-li:hover {
+  background: red;
+}
+
 .switch {
+  position: relative;
+  display: inline-block;
   width: 52px;
   height: 26px;
 }
+
 
 .switch input {
   opacity: 0;
@@ -138,8 +153,7 @@ align-items: center;
   transition: left 0.25s ease, content 0.25s ease;
 }
 
-input:checked + .slider::before {
+input:checked+.slider::before {
   left: calc(100% - 23px);
   content: "🌙";
 }
-

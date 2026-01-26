@@ -22,25 +22,28 @@
           Settings
         </a>
       </li>
+      
       <li>
         <a class="header-link" routerLink="/about-me" routerLinkActive="active">
           About me
         </a>
       </li>
+
       <li>
         <a class="header-link" routerLink="/admin" routerLinkActive="active">
-          admin
+          Admin
         </a>
+      </li>
+
+      <li class="toggle-li">
+        <label class="switch">
+          <input type="checkbox" [checked]="theme.darkMode" (change)="onThemeChange($event)" />
+          <span class="slider"></span>
+        </label>
       </li>
     </ul>
   </div>
 
-  <div>
-    <label class="switch">
-      <input type="checkbox" [checked]="theme.darkMode" (change)="onThemeChange($event)" />
-      <span class="slider round"></span>
-    </label>
-  </div>
 
 
 

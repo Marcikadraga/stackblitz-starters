@@ -1,14 +1,34 @@
 <ng-container *ngIf="user$ | async as user; else loggedOut">
   <div class="wrap">
     <span class="hello">Hi, {{ user.name }}</span>
-    <button class="btn-auth" (click)="logout()">Logout</button>
+
+    <button class="button-26" type="button" (click)="logout()">
+      <div class="button-26__content">
+        <span class="button-26__text">Logout</span>
+      </div>
+    </button>
   </div>
 </ng-container>
 
 <ng-template #loggedOut>
   <div class="wrap">
-    <a class="btn-auth" routerLink="/sign-in">Sign in</a>
-    <a class="btn-auth" routerLink="/auth">Register</a>
-    <button class="btn-auth" (click)="guest()">Sign in as guest</button>
+    <a class="button-26" routerLink="/sign-in">
+      <div class="button-26__content">
+        <span class="button-26__text">Sign in</span>
+      </div>
+    </a>
+
+    <a class="button-26" routerLink="/auth">
+      <div class="button-26__content">
+        <span class="button-26__text">Register</span>
+      </div>
+    </a>
+
+    <button class="button-26" type="button" (click)="guest()">
+      <div class="button-26__content">
+        <span class="button-26__text">Guest</span>
+      </div>
+    </button>
   </div>
 </ng-template>
+
