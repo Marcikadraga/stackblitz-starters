@@ -1,24 +1,23 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { GameCardComponent } from '../../components/game-card.component';
+import { GameService } from '../../services/game.service';
 
 @Component({
-  selector: 'app-counter',
+  selector: 'app-games',
   standalone: true,
-  template: `
-    <button (click)="increment()">+</button>
-    <p>Count: {{ count() }}</p>
-    <p>Double: {{ doubleCount() }}</p>
-  `,
+  imports: [CommonModule, GameCardComponent],
+  templateUrl: './games.component.html',
 })
 export class GamesComponent {
-  count = signal(1);
+  games = toSignal(this.gameService.games$, { initialValue: [] });
 
-  doubleCount = () => {
-    console.log('function recalculated');
-    return this.count() * 2;
-  };
+  gamesCount = computed(() => this.games().length);
 
-  increment() {
-    this.count.update(c => c + 1);
+  constructor(private gameService: GameService) {}
+
+  openGame(gameName: string): void {
+    console.log('Clicked game:', gameName);
   }
 }
-

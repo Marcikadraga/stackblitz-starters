@@ -1,0 +1,18 @@
+<h2>Games ({{ gamesCount() }})</h2>
+
+<div class="grid">
+  <app-game-card
+    *ngFor="let game of games()"
+    [name]="game.name"
+    [creator]="game.creator"
+    [description]="game.description"
+    [created_at]="game.created_at"
+    (clickOnGame)="openGame(game.name)"
+  >
+    <h3>{{ game.name }}</h3>
+    <p>{{ game.description }}</p>
+    <small>
+      By {{ game.creator }} • {{ game.created_at | date: 'mediumDate' }}
+    </small>
+  </app-game-card>
+</div>
