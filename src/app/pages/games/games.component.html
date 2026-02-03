@@ -3,15 +3,13 @@
 <div class="grid">
   <app-game-card
     *ngFor="let game of games()"
-    [name]="game.name"
-    [creator]="game.creator"
-    [description]="game.description"
-    [created_at]="game.created_at"
     (clickOnGame)="openGame(game.name)"
   >
-    <h3>{{ game.name }}</h3>
-    <p>{{ game.description }}</p>
-    <small>
+    <h3 card-header>{{ game.name }}</h3>
+
+    <p card-body>{{ game.description }}</p>
+
+    <small card-footer>
       By {{ game.creator }} • {{ game.created_at | date: 'mediumDate' }}
     </small>
   </app-game-card>

@@ -8,7 +8,8 @@ import { GameService } from '../../services/game.service';
   selector: 'app-games',
   standalone: true,
   imports: [CommonModule, GameCardComponent],
-  templateUrl: './games.component.html',
+  templateUrl: 'games.component.html',
+  styleUrls: ['games.component.scss'],
 })
 export class GamesComponent {
   games = toSignal(this.gameService.games$, { initialValue: [] });

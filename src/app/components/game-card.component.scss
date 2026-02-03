@@ -1,0 +1,38 @@
+.card {
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 16px;
+    background: #1e1e1e;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 70%;
+  
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    }
+  }
+  
+  .card-header {
+    font-size: 10px;
+    font-weight: 600;
+    color: #fff;
+    border: 1px solid red;
+  }
+  
+  .card-body {
+    font-size: 14px;
+    opacity: 0.85;
+  }
+  
+  .card-footer {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: auto;
+  }
+  
